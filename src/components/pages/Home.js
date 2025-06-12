@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 import Navbar from "./Navbar";
 
 function Home() {
@@ -7,6 +8,7 @@ function Home() {
                 <Navbar />
                 <h1 className="text-center display-2 text-primary"> Home </h1>
             </div>
+            <Footer/>
         </>
     )
 }
