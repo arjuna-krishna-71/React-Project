@@ -16,12 +16,18 @@ function Registration() {
     }
     async function UpdatingDatabase() {
         console.log(registrationData.userType);
-        if (registrationData.userType === "user") {
-            let res = await axios.post("http://localhost:1025/users", registrationData);
-            console.log(res.data);
-        } else if (registrationData.userType === "admin") {
-            let res = await axios.post("http://localhost:1025/admins", registrationData);
-            console.log(res.data);
+        const len = Object.keys(registrationData).length;
+        console.log(len);
+        if (len > 0) {
+            if (registrationData.userType === "user") {
+                let res = await axios.post("http://localhost:1025/users", registrationData);
+                console.log(res.data);
+            } else if (registrationData.userType === "admin") {
+                let res = await axios.post("http://localhost:1025/admins", registrationData);
+                console.log(res.data);
+            }
+        } else {
+            console.log("The data in the Registration feild is Empty");
         }
     }
     return (
@@ -46,6 +52,13 @@ function Registration() {
                 </div>
 
             </div>
+            <>
+
+
+
+                {/* <p>The user logined is : {registrationData.name}</p> */}
+
+            </>
         </>
     )
 }

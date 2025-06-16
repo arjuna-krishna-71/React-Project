@@ -7,6 +7,7 @@ function Navbar() {
                 <ul className="navbar-nav ">
                     <li className="nav-item mx-2"><NavLink to='/'>Home</NavLink></li>
                     <li className="nav-item mx-2"><NavLink to='/registration'>Register</NavLink></li>
+                    <li className="nav-item mx-2"><NavLink to='/login'>Login</NavLink></li>
                     <li className="nav-item mx-2"><NavLink to='/adminhome'>Admin Home</NavLink></li>
                     <li className="nav-item mx-2"><NavLink to='/userhome'>User Home</NavLink></li>
 
