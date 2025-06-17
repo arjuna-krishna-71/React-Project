@@ -68,3 +68,46 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### Redux
+
+Step1:
+-> Store.js-> Create a store 
+-> Configure store using the method configureStore from '@reduxjs/toolkit';
+-> export const loginSlice = configureStore({reducer:{loginSlice}});
+
+Step2:
+-> LoginSlice.js
+=> import {createSlice,createAsyncThunk} from '@reduxjs/toolkit';
+-> export const userLoginCycle = createAsyncThunk("name",async (input from the useDispatch,thunkApi)=>{try{let res = await axios.post("url",input from the useDispatch; You will get a response from the user. THIS RESPONSE is sent to the below extraReducrs while creating a Slice.)}})
+->Now, Create a Slice,
+const loginSlice = createSlice({
+    name:"login",
+    initialState:The initial state of the application values,
+    reducers:{Any change without depending on the Backend response},
+    extraReducers:(builder)=>{ //Waits for the RESPONSE from the SERVER. //Here the builder is parameter which it is having the method  like addCase, addMatch etc...
+builder.addCase(userLoginCycle.pending,(state,action)=>{.......})
+        .addCase(userLoginCycle.fulfilled,(state,action)=>{.......})
+        .addCase(userLoginCycle.rejected,(state,action)=>{.......})
+
+    }
+})
+
+Step3:
+-> Component.js
+-> import {useDispatch} from 'react-redux'; , import {useSelector} from 'react-redux';
+-> import {userLoginCycle} from './slice/loginSlice.js';
+-> Const dispatch = useDispatch();
+-> Const data1 = useSelector(state=>state); // Here the State STORES the all data from the REDUX store. UseSelector is used to RETRIEVE the Updated STATES from the Redux Store.
+-> dispatch(userLoginCycle(input to be sent to backend)); //Dispatch will send the frontend data to the redux store from there it will passed to backend through createAsyncThunk
+ 
+Step4:
+-> index.js
+=> import {Provider} from 'react-redux';
+=> import {loginSlice} from "./Store/store.js"; //The slice which created using createSlice will be storing all the REDUCERS and the Latest states in it. So make it available GLOBALLY we are placing the STORE in the INDEX.js
+<Provider store={loginSlice}>
+<Browserrouter>
+<App/>
+</Browserrouter>
+<Provider>
