@@ -5,6 +5,7 @@ import AHome from './components/admin/AHome';
 import Home from './components/pages/Home';
 import Registration from './components/pages/Registration';
 import Login from './components/pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -15,8 +16,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/userhome" element={<UHome />} />
-          <Route path="/adminhome" element={<AHome />} />
+          <Route path="/userhome" element={<ProtectedRoute><UHome /></ProtectedRoute>} />
+          <Route path="/adminhome" element={<ProtectedRoute><AHome /></ProtectedRoute>} />
 
         </Routes>
       </BrowserRouter>

@@ -8,7 +8,6 @@ import { loginUser } from "../../redux/slice/LoginSlice";
 function Login() {
     const [logData, setLogData] = useState({});
     const [err, setErr] = useState("");
-
     const handleChange = (e) => {
         setLogData({ ...logData, [e.target.name]: e.target.value });
     };
@@ -22,7 +21,7 @@ function Login() {
             setErr("All fields are required");
             return;
         }
-
+      
         dispatch(loginUser(logData))
             .unwrap()
             .then((res) => {
