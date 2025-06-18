@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./css/Login.css";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/slice/LoginSlice";
 
@@ -8,8 +8,6 @@ import { loginUser } from "../../redux/slice/LoginSlice";
 function Login() {
     const [logData, setLogData] = useState({});
     const [err, setErr] = useState("");
-    let navigate = useNavigate();
-
     const handleChange = (e) => {
         setLogData({ ...logData, [e.target.name]: e.target.value });
     };
@@ -23,10 +21,13 @@ function Login() {
             setErr("All fields are required");
             return;
         }
-
-        dispatch(loginUser({...logData,navigate}))
+      
+        dispatch(loginUser(logData))
             .unwrap()
-            .then(() => {
+            .then((res) => {
+                sessionStorage.setItem("logtype", res.userType);
+                sessionStorage.setItem("name", res.userData.name);
+                sessionStorage.setItem("log-email", res.userData.email);
                 setErr("");
             })
             .catch((errMsg) => {
@@ -37,7 +38,7 @@ function Login() {
 
     return (
         <div className="text-center" id="login">
-            <form onSubmit={handleLogin} autoComplete="off">
+            <form onSubmit={handleLogin}>
                 <p className="text-dark display-6">Login</p><br />
                 {(err || error) && <h1 className="display-6 text-danger">{err || error}</h1>}
                 {loading && <p className="text-primary">Logging in...</p>}
@@ -47,10 +48,10 @@ function Login() {
                 <label className="p-2" htmlFor="adminRadio">Admin</label><br /><br />
 
                 <label htmlFor="email">Enter Username</label>
-                <input type="email" autoComplete="off" placeholder="Enter your username:" name="email" id="email" onChange={handleChange} /><br /><br />
+                <input type="email" placeholder="Enter your username:" name="email" id="email" onChange={handleChange} /><br /><br />
 
                 <label htmlFor="password">Enter Password</label>
-                <input type="password" autoComplete="off" placeholder="Enter your password:" name="password" id="password" onChange={handleChange} /><br /><br />
+                <input type="password" placeholder="Enter your password:" name="password" id="password" onChange={handleChange} /><br /><br />
 
                 <input type="submit" value="Login" className="m-5 bg-primary" />
             </form>
